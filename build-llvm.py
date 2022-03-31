@@ -826,6 +826,10 @@ def distro_cmake_defines():
     """
     defines = {}
 
+    # Explicitly set LLVM_HOST_TRIPLE to workaround target triple "x86_64-unknown-linux-gnu" on Ubuntu
+    # For reference see: <https://github.com/ClangBuiltLinux/tc-build/issues/92>
+    defines['LLVM_HOST_TRIPLE'] = "x86_64-pc-linux-gnu"
+
     # Clear Linux needs a different target to find all of the C++ header files, otherwise
     # stage 2+ compiles will fail without this
     # We figure this out based on the existence of x86_64-generic-linux in the C++ headers path
